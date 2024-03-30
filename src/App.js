@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import Homepage from "./Components/Homepage";
+import Item from "./Components/Item";
+import Navbar from "./Components/Navbar";
+import Loader from "./Components/Loader";
 
-function App() {
+const App = () => {
+  const [selectedItem, setSelectedItem] = useState({});
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar/>
+      <Routes>
+        <Route
+          path="/"
+          element={<Homepage setSelectedItem={setSelectedItem} />}
+        />
+        <Route
+          path={`/item/:${selectedItem.id}`}
+          element={<Item selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>}
+        />
+        <Route
+          path="/notifications"
+          element={<Loader/>}
+        />
+        <Route
+          path="/item/"
+          element={<Item selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>}
+        />
+        <Route
+          path="/profile"
+          element={<Loader/>}
+        />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
